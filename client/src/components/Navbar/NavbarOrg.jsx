@@ -26,7 +26,7 @@ export const NavbarOrg = ({ onclick }) => {
 
   return (
     <div>
-      <nav className="bg-white shadow-md p-4 flex justify-between lg:justify-end items-center sticky top-0">
+      <nav className="bg-white z-20 shadow-md p-4 flex justify-between lg:justify-end items-center sticky top-0">
         <Bars3BottomRightIcon
           onClick={onclick}
           className="h-9 w-9 cursor-pointer font-bold lg:hidden "
@@ -62,7 +62,7 @@ export const NavbarOrg = ({ onclick }) => {
             {/* profile menu */}
             <div
               className={`absolute top-16 right-1 ${
-                isClicked ? "hidden" : "block"
+                isClicked ? "block" : "hidden"
               } w-80 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
             >
               <div className="p-3">
@@ -106,7 +106,7 @@ export const NavbarOrg = ({ onclick }) => {
                     className="flex items-center space-x-3 rounded-md px-2 py-2 text-sm font-medium w-full text-red-600 hover:bg-red-50"
                   >
                     <ArrowRightOnRectangleIcon className="h-5 w-5" />
-                    <span>Sign out</span>
+                    <span>Logout</span>
                   </button>
                 </div>
               </div>

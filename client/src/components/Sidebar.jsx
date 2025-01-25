@@ -8,18 +8,20 @@ import {
   ArrowRightOnRectangleIcon,
   UserGroupIcon,
   UserIcon,
+  MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import { useAuth } from "../Context/AuthContext";
 
 const organizerLinks = [
   { name: "Dashboard", url: "/organizer/dashboard", icon: HomeIcon },
   { name: "Manage Event", url: "/organizer/manageEvent", icon: CalendarIcon },
-  { name: "Vendor Search", url: "/organizer/vendor-search", icon: ChartBarIcon },
+  { name: "Vendor Search", url: "/vendor-search", icon: MagnifyingGlassIcon },
 ];
 const adminLinks = [
   { name: "Dashboard", url: "/admin/dashboard", icon: HomeIcon },
   { name: "Manage Users", url: "/admin/manage-users", icon: UserGroupIcon },
   { name: "Manage Request", url: "/admin/manage-request", icon: CalendarIcon },
+  { name: "Vendor Search", url: "/vendor-search", icon: MagnifyingGlassIcon },
   // { name: "Report", url: "/admin/registered-users", icon: ChartBarIcon },
 ];
 const vendorLinks = [
@@ -107,10 +109,10 @@ export const Sidebar = ({isOpen}) => {
             <p className="text-sm text-[#eea47f]">Organizer</p>
           </div>
         </div> */}
-        {/* <button onClick={handleLogout} className="w-full flex items-center justify-center p-3 bg-[#eea47f] text-[#00539c] rounded-xl hover:bg-[#f0b48f] transition-all duration-300">
+        <button onClick={handleLogout} className="w-full flex items-center justify-center p-3 bg-[#eea47f] text-[#00539c] rounded-xl hover:bg-[#f0b48f] transition-all duration-300">
           <ArrowRightOnRectangleIcon className="w-6 h-6 mr-2" />
           Logout
-        </button> */}
+        </button>
       </div>
     </div>
 
@@ -177,10 +179,10 @@ export const Sidebar = ({isOpen}) => {
             <p className="text-sm text-[#eea47f]">Organizer</p>
           </div>
         </div> */}
-        {/* <button onClick={handleLogout} className="w-full flex items-center justify-center p-3 bg-[#eea47f] text-[#00539c] rounded-xl hover:bg-[#f0b48f] transition-all duration-300">
+        <button onClick={handleLogout} className="w-full flex items-center justify-center p-3 bg-[#eea47f] text-[#00539c] rounded-xl hover:bg-[#f0b48f] transition-all duration-300">
           <ArrowRightOnRectangleIcon className="w-6 h-6 mr-2" />
           Logout
-        </button> */}
+        </button>
       </div>
     </div>
     </>

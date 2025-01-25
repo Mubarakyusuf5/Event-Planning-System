@@ -18,6 +18,7 @@ app.options("*", cors(corsOptions));  // Preflight request handler
 
 // Your routes
 app.use("/auth", require("./Routes/authRoutes.js"));
+app.use("/api/users", require("./Routes/userRoute.js"))
 app.use("/api/event", require("./Routes/eventRoute.js"))
 app.use("/api/request", require("./Routes/requestRoute.js"))
 app.use("/api/vendor", require("./Routes/vendorDetailRoute.js"))

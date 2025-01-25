@@ -27,6 +27,7 @@ export const VendorDash = () => {
 const  handleToggle = ()=>{
   setIsOpen(prevIsOpen => !prevIsOpen)
 }
+
   return (
     <div className='bg-gray-50 flex min-h-screen'>
       <Sidebar isOpen={isOpen} />

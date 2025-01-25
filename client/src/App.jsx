@@ -15,6 +15,9 @@ import ProtectedRoute from './components/ProtectedRoute'; // Import ProtectedRou
 import { AuthProvider } from './Context/AuthContext'; // Import AuthProvider
 import axios from 'axios';
 import { VendorDash } from './pages/Vendor/VendorDash';
+import { ManageUser } from './pages/admin/ManageUser';
+import { ManageRequest } from './pages/admin/ManageRequest';
+import { RequestPage } from './RequestPage';
 
 axios.defaults.baseURL = 'http://localhost:4500';
 axios.defaults.withCredentials = true;
@@ -28,18 +31,27 @@ export const App = () => {
   return (
     <AuthProvider>
       <Toaster position="top-center" duration={3000} />
-      {/* {!isSignInPage && !isSignupPage && !DetailsPage && <Navbar />} */}
+      {!isSignInPage && !isSignupPage && !DetailsPage && <Navbar />}
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/create-account" element={<Signup />} />
-        <Route path="/organizer/vendor-search" element={<AllVendor />} />
+        <Route path="/vendor-search" element={<AllVendor />} />
+        <Route path="/plan-my-event" element={<RequestPage />} />
 
         {/* Protected Routes */}
         <Route
           path="/admin/dashboard"
           element={<ProtectedRoute element={<AdminDash />} allowedRoles={['Admin']} />}
+        />
+        <Route
+          path="/admin/manage-users"
+          element={<ProtectedRoute element={<ManageUser />} allowedRoles={['Admin']} />}
+        />
+        <Route
+          path="/admin/manage-request"
+          element={<ProtectedRoute element={<ManageRequest />} allowedRoles={['Admin']} />}
         />
         
         <Route path="/completeDetails" 
