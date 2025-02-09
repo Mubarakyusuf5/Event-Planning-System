@@ -58,7 +58,7 @@ const loginUser = async (req, res) => {
         httpOnly: true,
         secure: true,
         sameSite: "Strict",
-        maxAge: 3600000
+        maxAge: 36000000
 
     })
     res.status(200).json({ message: "Login successful", user, token });
