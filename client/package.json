@@ -18,6 +18,7 @@
     "react-data-table-component": "^7.6.2",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
+    "react-paginate": "^8.2.0",
     "react-router-dom": "^7.0.2",
     "react-spinners": "^0.15.0",
     "react-to-print": "^3.0.4"

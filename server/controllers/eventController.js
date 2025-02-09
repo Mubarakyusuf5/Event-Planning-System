@@ -1,92 +1,95 @@
 const {Events} = require("../models/eventModel");
 
 
-const createEvent = async (req, res) => {
-  try {
-    const {
-      userId,
-      eventName,
-      location,
-      date, 
-      time,
-      status,
-      budget,
-      maxAttendee,
-      venue, 
-      category,
-      description, 
-    } = req.body;
-    
-
-    // Check if event with the same name already exists
-    const exist = await Events.findOne({ eventName });
-    if (exist) {
-      return res.status(400).json({ message: "Event already exists" });
-    }
-
-    // Create new event
-    const newEvent = await Events.create({
-      userId, eventName, location, date, time, status, budget, venue, category, maxAttendee, description,
-    });
-
-    // Respond with success message
-    res.status(200).json({ message: "Event created successfully", newEvent });
-  } catch (error) {
-    // Handle errors
-    res.status(400).json({ message: "Error creating Event", error: error.message });
-  }
-};
 // const createEvent = async (req, res) => {
 //   try {
-//     // Destructure data from the request body
 //     const {
+//       userId,
 //       eventName,
 //       location,
-//       date,
+//       date, 
 //       time,
 //       status,
 //       budget,
 //       maxAttendee,
-//       venue,
+//       venue, 
 //       category,
-//       description,
+//       description, 
 //     } = req.body;
+    
 
-//     // Get the userId from the authenticated user (assumed to be added to req.user during authentication)
-//     const userId = req.user.id;
-
-//     // Check if an event with the same name already exists
+//     // Check if event with the same name already exists
 //     const exist = await Events.findOne({ eventName });
 //     if (exist) {
 //       return res.status(400).json({ message: "Event already exists" });
 //     }
 
-//     // Create a new event and associate it with the user
+//     // Create new event
 //     const newEvent = await Events.create({
-//       userId, // Associate the event with the logged-in user
-//       eventName,
-//       location,
-//       date,
-//       time,
-//       status,
-//       budget,
-//       venue,
-//       category,
-//       maxAttendee,
-//       description,
+//       userId, eventName, location, date, time, status, budget, venue, category, maxAttendee, description,
 //     });
 
-//     // Respond with success message and the created event data
+//     // Respond with success message
 //     res.status(200).json({ message: "Event created successfully", newEvent });
 //   } catch (error) {
-//     // Handle errors and send error message
+//     // Handle errors
 //     res.status(400).json({ message: "Error creating Event", error: error.message });
 //   }
 // };
 
+const createEvent = async (req, res) => {
+  try {
+    const {
+      eventName,
+      location,
+      date,
+      time,
+      budget,
+      maxAttendee,
+      venue,
+      category,
+      description,
+    } = req.body;
+
+    // Get the userId from the authenticated user (assumed to be added to req.user during authentication)
+    const userId = req.user.id;
+
+    // check date input to be for future setting
+    if (new Date(date) < new Date()) {
+      return res.status(400).json({ message: "Event date cannot be in the past!" });
+    }
+
+    // Check if an event with the same name already exists
+    const exist = await Events.findOne({ eventName });
+    if (exist) {
+      return res.status(400).json({ message: "Event already exists" });
+    }
+
+    // Create a new event and associate it with the user
+    const newEvent = await Events.create({
+      userId, // Associate the event with the logged-in user
+      eventName,
+      location,
+      date,
+      time,
+      budget,
+      venue,
+      category,
+      maxAttendee,
+      description,
+    });
+
+    // Respond with success message and the created event data
+    res.status(200).json({ message: "Event created successfully", newEvent });
+  } catch (error) {
+    // Handle errors and send error message
+    res.status(400).json({ message: "Error creating Event", error: error.message });
+  }
+};
+
 const displayEvent = async (req, res)=>{
   try {
-    const event = await Events.find({}).populate({ path: "category", select: "name" })
+    const event = await Events.find({userId: req.user.id})
     res.status(200).json(event);
     } catch (error) {
       res.status(500).json({ message: "Error fetching Events" });
@@ -95,7 +98,7 @@ const displayEvent = async (req, res)=>{
 
 const displayEventById = async (req, res)=>{
   try {
-    const event = await Events.findById(req.params.id).populate({ path: "category", select: "name" })
+    const event = await Events.findById(req.params.id)
     res.status(200).json(event);
     } catch (error) {
       res.status(500).json({ message: "Error fetching Event by id" });
@@ -105,6 +108,10 @@ const displayEventById = async (req, res)=>{
   const updateEvent = async (req, res) => {
     try {
       // const { userId, eventName, location, date, time, status, budget, venue, category, maxAttendee, description, } = req.body;
+      const { date } = req.body
+      if (new Date(date) < new Date()) {
+        return res.status(400).json({ message: "Event date cannot be updated to the past!" });
+      }
   
       const updatedEvent = await Events.findByIdAndUpdate(req.params.id, req.body, { new: true });
   

@@ -26,17 +26,17 @@ const adminLinks = [
 ];
 const vendorLinks = [
   { name: "Dashboard", url: "/vendor/dashboard", icon: HomeIcon },
-  {
-    name: "Manage bookings",
-    url: "/vendor/manage-bookings",
-    icon: UserGroupIcon,
-  },
-  {
-    name: "Manage services",
-    url: "/vendor/manage-services",
-    icon: CalendarIcon,
-  },
-  { name: "Profile", url: "/vendor/view-profile", icon: UserIcon },
+  // {
+  //   name: "Manage bookings",
+  //   url: "/vendor/manage-bookings",
+  //   icon: UserGroupIcon,
+  // },
+  // {
+  //   name: "Manage services",
+  //   url: "/vendor/manage-services",
+  //   icon: CalendarIcon,
+  // },
+  // { name: "Profile", url: "/vendor/view-profile", icon: UserIcon },
   // { name: "Report", url: "/admin/registered-users", icon: ChartBarIcon },
 ];
 const role = "Organizer";
@@ -50,7 +50,7 @@ export const Sidebar = ({isOpen}) => {
     <>
     
     <div className="w-[270px] hidden bg-[#00539c] text-white p-4 fixed h-screen lg:flex flex-col">
-      <h1 className="font-bold text-3xl mb-8">Eventee</h1>
+      <h1 className="font-bold text-2xl mb-8">Elegance and Co.</h1>
       <nav className="flex-grow">
         <ul className="space-y-2">
           {user?.role === "Admin"

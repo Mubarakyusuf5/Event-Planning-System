@@ -26,13 +26,13 @@ export const NavbarOrg = ({ onclick }) => {
 
   return (
     <div>
-      <nav className="bg-white z-20 shadow-md p-4 flex justify-between lg:justify-end items-center sticky top-0">
+      <nav className="bg-white z-10 shadow-md p-4 flex justify-between lg:justify-end items-center sticky top-0">
         <Bars3BottomRightIcon
           onClick={onclick}
           className="h-9 w-9 cursor-pointer font-bold lg:hidden "
         />
-        <div className="lg:hidden text-3xl text-[#00539c] font-bold">
-          Eventee
+        <div className="lg:hidden text-2xl text-[#00539c] font-bold">
+        Elegance and Co.
         </div>
         <div className=" items-center hidden">
           <input
@@ -82,7 +82,7 @@ export const NavbarOrg = ({ onclick }) => {
                 </div>
 
                 {/* Account Section */}
-                <nav className="mt-3 space-y-2">
+                {/* <nav className="mt-3 space-y-2">
                   <a
                     href="#"
                     className="flex items-center space-x-3 rounded-md px-2 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900"
@@ -97,10 +97,10 @@ export const NavbarOrg = ({ onclick }) => {
                     <CogIcon className="h-5 w-5 text-gray-400" />
                     <span>Settings</span>
                   </a>
-                </nav>
+                </nav> */}
 
                 {/* Sign Out */}
-                <div className="mt-3 border-t border-gray-200 pt-3">
+                <div className=" border-gray-200 pt-3">
                   <button
                     onClick={handleLogout}
                     className="flex items-center space-x-3 rounded-md px-2 py-2 text-sm font-medium w-full text-red-600 hover:bg-red-50"

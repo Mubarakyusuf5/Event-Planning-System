@@ -67,6 +67,7 @@ export const ManageEvent = () => {
       setEventData(response.data);
       setLoading(false);
     } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to fetch events")
       console.error("Failed to fetch events:", error);
       setLoading(false);
     }

@@ -31,7 +31,7 @@ export const Section1 = () => {
     // },
   ];
   return (
-    <div className="min-h-[350px] bg-amber-100 py-10 px-6">
+    <div className="min-h-[350px] bg-[#eea47fea] py-10 px-6">
         <h2 className="font-poppins text-4xl font-medium text-center  mb-5">
           Why Choose Us?
         </h2>
@@ -39,7 +39,7 @@ export const Section1 = () => {
       <div className="flex items-center justify-center">
         <div className="mt-6 flex justify-center flex-col md:flex-row gap-8">
           {cards.map(({ title, desc, icon }, index) => (
-            <Card key={index} title={title} description={desc} Icon={icon} />
+            <Card Key={index} title={title} description={desc} Icon={icon} />
           ))}
         </div>
       </div>

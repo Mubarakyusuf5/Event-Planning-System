@@ -1,27 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import { Roles, Stats } from "../../../Data";
+import { toast } from "react-hot-toast";
+import axios from "axios";
 
-export const UpdateUserModal = ({ onClose }) => {
-    const [formData, setFormData] = useState({
-        fullname: "",
-        email: "",
-        password: "",
-        role: "",
-        status: ""
-    })
+export const UpdateUserModal = ({userData, onClose, fetchUsers }) => {
+  const [formData, setFormData] = useState({
+    fullname: userData.fullname || "",
+    email: userData.email || "",
+    password: "",
+    role: userData.role || "",
+    status: userData.status || "",
+  });
+  const [loading, setLoading] = useState(false);
 
-    const handleInputChange = (e)=>{
-        const { name, value } = e.target;
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.fullname || !formData.email || !formData.role || !formData.password || !formData.status) {
+      toast.error("All fields are required!");
+      return;
     }
 
-    const handleSubmit = async (e)=>{
-        e.preventDefault()
-
-        console.log(formData)
+    setLoading(true); // Set loading to true during submission
+    try {
+      const response = await axios.put(
+        `/api/users/updateUser/${userData._id}`,
+        formData
+      );
+      toast.success(response.data.message);
+      fetchUsers(); // Refresh the events list
+      onClose(); // Close the modal after update
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message ||
+        "Error updating event. Please try again.";
+      toast.error(errorMessage);
+      console.error("Error:", error);
+    } finally {
+      setLoading(false); // Set loading to false after completion
     }
+  };
+
   return (
-    <div className="bg-black py-5 md:px-4 bg-opacity-20 absolute top-0 left-0 right-0 min-h-screen flex justify-center items-center">
+    <div className="bg-black z-20 py-5 md:px-4 bg-opacity-20 absolute top-0 left-0 right-0 min-h-screen flex justify-center items-center">
       <div>
         <form
           className="bg-white p-4 rounded-lg w-[500px]"
@@ -40,13 +65,13 @@ export const UpdateUserModal = ({ onClose }) => {
               id="fullname"
               value={formData.fullname}
               onChange={handleInputChange}
-              placeholder="Enter event name"
+              placeholder="Enter full name"
               className="block w-full p-2 border border-gray-300 rounded-lg focus:border-blue-600 outline-none"
             />
           </div>
           <div className="mb-2">
             <label htmlFor="email" className="text-base font-medium">
-              email
+              Email
             </label>
             <input
               type="email"
@@ -54,7 +79,7 @@ export const UpdateUserModal = ({ onClose }) => {
               id="email"
               value={formData.email}
               onChange={handleInputChange}
-              placeholder="Enter a email ex: address"
+              placeholder="Enter email address"
               className="block w-full p-2 border border-gray-300 rounded-lg focus:border-blue-600 outline-none"
             />
           </div>
@@ -68,13 +93,13 @@ export const UpdateUserModal = ({ onClose }) => {
               id="password"
               value={formData.password}
               onChange={handleInputChange}
-              placeholder="Enter a password"
+              placeholder="Enter password"
               className="block w-full p-2 border border-gray-300 rounded-lg focus:border-blue-600 outline-none"
             />
           </div>
           <div className="mb-2">
             <label htmlFor="role" className="text-base font-medium">
-              role
+              Role
             </label>
             <select
               name="role"
@@ -117,9 +142,14 @@ export const UpdateUserModal = ({ onClose }) => {
           <div className="flex gap-2 justify-end mt-6">
             <button
               type="submit"
-              className="bg-blue-500 transition-all duration-300 hover:bg-blue-600 py-2 text-white font-semiBold px-4 rounded-lg"
+              className={`${
+                loading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-blue-500 hover:bg-blue-600"
+              } transition-all duration-300 py-2 text-white font-semiBold px-4 rounded-lg`}
+              disabled={loading}
             >
-              Save
+              {loading ? "Saving..." : "Save"}
             </button>
             <button
               type="button"

@@ -26,7 +26,8 @@ export const AuthProvider = ({ children }) => {
           localStorage.setItem("user", JSON.stringify(data.user));
         }
       } catch (error) {
-        console.error("Error fetching user", error);
+        // toast.error(error?.data?.message)
+        // console.error("Error fetching user", error);
       }
     };
     fetchUser();

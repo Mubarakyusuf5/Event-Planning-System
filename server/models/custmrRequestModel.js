@@ -3,15 +3,15 @@ const mongoose = require("mongoose");
 // Event Schema
 const RequestSchema = mongoose.Schema(
   {
-    fullname: {
+    name: {
       type: String,
       required: true,
     },
     email: {
       type: String,
       required: true,
-      unique: true,
-      match: [/.+\@.+\..+/, "Please fill a valid email address"],
+      // unique: true,
+      // match: [/.+\@.+\..+/, "Please fill a valid email address"],
     },
     phone: {
       type: Number,
@@ -39,14 +39,6 @@ const RequestSchema = mongoose.Schema(
       default: 0, // Free Requests by default
       min: 0, // Prevent negative prices
     },
-    services: [
-      {
-        name: {
-          type: String,
-          required: true, // Ensure service name is required
-        },
-      },
-    ],
     status:{
         type: String,
         enum: ['Scheduled', "Completed", 'Pending', 'Rejected'],
@@ -56,17 +48,34 @@ const RequestSchema = mongoose.Schema(
       type: Date,
       required: true,
     },
-    time: {
-      type: String, // Use string to store just the time, e.g., "10:00 AM"
-      required: true,
-    },
-    maxAttendee: {
+    food: [
+      {
+        type: String,
+      }
+    ],
+    drinks: [
+      {
+        type: String
+      }
+    ],
+    beverages: [
+      {
+        type: String
+      }
+    ],
+    otherServices: [
+      {
+        type: String
+      }
+    ],
+    guests: {
       type: Number,
       required: true,
     },
-    category: {
+    message: {
       type: String,
-      required: true,
+      // required: true,
+      trim: true,
     },
   },
   {

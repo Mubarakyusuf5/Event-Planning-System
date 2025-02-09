@@ -18,6 +18,7 @@ import { VendorDash } from './pages/Vendor/VendorDash';
 import { ManageUser } from './pages/admin/ManageUser';
 import { ManageRequest } from './pages/admin/ManageRequest';
 import { RequestPage } from './RequestPage';
+import { VendorDetails } from './pages/Vendor/VendorDetails';
 
 axios.defaults.baseURL = 'http://localhost:4500';
 axios.defaults.withCredentials = true;
@@ -39,6 +40,7 @@ export const App = () => {
         <Route path="/auth/create-account" element={<Signup />} />
         <Route path="/vendor-search" element={<AllVendor />} />
         <Route path="/plan-my-event" element={<RequestPage />} />
+        <Route path="/vendors/:id" element={<VendorDetails />} />
 
         {/* Protected Routes */}
         <Route

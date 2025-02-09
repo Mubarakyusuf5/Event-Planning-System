@@ -30,7 +30,7 @@ export const Navbar = () => {
         <div className="flex gap-8 items-center">
           {/* Logo */}
           <Link to="/" className="text-3xl text-[#00539c] font-bold">
-            Eventee
+          Elegance and Co.
           </Link>
 
           {/* Navigation Links */}

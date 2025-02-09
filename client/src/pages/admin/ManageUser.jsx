@@ -11,6 +11,8 @@ import { ViewEventModal } from "../../components/Modal/ViewEventModal";
 import { UpdateEventModal } from "../../components/Modal/UpdateEventModal";
 import toast from "react-hot-toast";
 import { useAuth } from "../../Context/AuthContext";
+import { AddUserModal } from "../../components/Modal/users/AddUserModal";
+import { UpdateUserModal } from "../../components/Modal/users/UpdateUserModal";
 
 // Custom styles for DataTable
 const ActionButton = ({ icon: Icon, onClick, ariaLabel, bgColor }) => (
@@ -65,10 +67,11 @@ export const ManageUser = () => {
     try {
       const response = await axios.get("/api/users/displayUser");
       setuserData(response.data);
-      console.log(response.data)
+      // console.log(response.data)
       setLoading(false);
     } catch (error) {
-      // console.error("Failed to fetch users:", error);
+      toast.error(error.response?.data?.message || "Failed to fetch users")
+      console.error("Failed to fetch users:", error);
       setLoading(false);
     }
   };
@@ -152,12 +155,12 @@ export const ManageUser = () => {
       name: 'Actions',
       cell: row => (
         <div className="flex space-x-2">
-          <ActionButton
+          {/* <ActionButton
             icon={EyeIcon}
             onClick={() => handleViewModal(row)}
             ariaLabel="View user"
             bgColor="bg-blue-500"
-          />
+          /> */}
           <ActionButton
             icon={PencilIcon}
             onClick={() => handleUpdateBtn(row)}
@@ -187,7 +190,7 @@ export const ManageUser = () => {
       <div className="flex-1 flex flex-col lg:ml-[270px]">
         <NavbarOrg onclick={handleToggle} />
         <main className="flex-1 p-6 bg-gray-50">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex justify-between flex-col gap-3 lg:flex-row items-center mb-6">
             <h1 className="text-3xl font-bold text-[#00539c] font-poppins">Manage Users</h1>
             <button onClick={() => setShowModal(true)} className="py-2 px-4 bg-[#eea47f] text-white rounded-lg hover:bg-[#e8956f] transition-colors flex items-center">
               <PlusIcon className="w-5 h-5 mr-2" />
@@ -197,7 +200,7 @@ export const ManageUser = () => {
           {loading ? (
             <p className="text-xl text-center mt-20 font-bold">Loading users...</p>
           ) : (
-            <div className="bg-white rounded-xl shadow-md p-6">
+            <div className="bg-white rounded-xl overflow-auto w-[390px] sm:w-[700px] lg:w-full shadow-md p-6">
               <DataTable
                 columns={columns}
                 data={userData}
@@ -212,8 +215,8 @@ export const ManageUser = () => {
         </main>
       </div>
 
-      {showModal && <AddEventDetail fetchUsers={fetchUsers} onClose={() => setShowModal(false)} />}
-      {showUpdateModal && <UpdateEventModal userData={selectedUser} fetchUsers={fetchUsers} onClose={() => setShowUpdateModal(false)} />}
+      {showModal && <AddUserModal fetchUsers={fetchUsers} onClose={() => setShowModal(false)} />}
+      {showUpdateModal && <UpdateUserModal userData={selectedUser} fetchUsers={fetchUsers} onClose={() => setShowUpdateModal(false)} />}
       {showDeleteModal && <DeleteModal onClose={() => setShowDeleteModal(false)} onDelete={() => handleDeleteBtn(selectedUser._id)} />}
       {showViewModal && <ViewEventModal onClose={() => setShowViewModal(false)} userData={selectedUser} />}
     </div>

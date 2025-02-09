@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 export const Section2 = () => {
   return (
-    <div className="bg-[#00539C] p-6 font-roboto text-white">
-    <div className="min-h-[300px] bg-[#EEA47F] rounded-xl py-8 px-6">
+    <div className="bg-[#00539C] font-roboto">
+    <div className="min-h-[300px] bg-gray-100 py-8 px-6 lg:px-20">
       <div className="lg:w-[450px] mb-8">
         <h3 className="text-xl font-medium font-poppins mb-4">
           For Vendors
@@ -28,7 +28,7 @@ export const Section2 = () => {
           "Manage your bookings and communications from one place.",
           "Access tools to track and improve your business performance."
         ].map((text, index) => (
-          <div key={index} className="min-h-[150px] w-full md:w-[330px] p-4 mb-4 md:mb-0 font-medium bg-white text-[#00539C] rounded-xl flex items-start">
+          <div key={index} className="min-h-[150px] shadow-lg w-full md:w-[330px] p-4 mb-4 md:mb-0 font-medium bg-white text-[#00539C] rounded-xl flex items-start">
             <CheckCircleIcon className="mr-3 h-14 text-[#00539C]" />
             <p>{text}</p>
           </div>

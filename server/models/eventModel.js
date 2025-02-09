@@ -16,7 +16,7 @@ const EventSchema = mongoose.Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Users",
-      // required: true,
+      required: true,
     },
     eventName: {
       type: String,
@@ -26,10 +26,6 @@ const EventSchema = mongoose.Schema(
       maxlength: 100,
       unique: true,
     },
-    // image: {
-    //   type: String,
-    //   default: "default-image.jpg", // Placeholder image URL
-    // },
     location: {
       type: String,
       required: true,
@@ -50,11 +46,6 @@ const EventSchema = mongoose.Schema(
       default: 0, // Free events by default
       min: 0,     // Prevent negative prices
     },
-    // type: {
-    //   type: String,
-    //   required: true,
-    //   trim: true,
-    // },
     status: {
       type: String,
       enum: ["Completed", "Cancelled", "Scheduled"],
@@ -72,16 +63,11 @@ const EventSchema = mongoose.Schema(
       type: Number,
       required: true
     },
-    // category: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "Category",
-    //   required: true,
-    //   index: true, // Optimize queries by category
-    // },
+    
     category: {
       type: String,
       required: true,
-      // index: true, // Optimize queries by category
+      index: true, // Optimize queries by category
     },
   },
   {

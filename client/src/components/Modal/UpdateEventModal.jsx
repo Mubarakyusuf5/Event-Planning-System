@@ -70,7 +70,7 @@ export const UpdateEventModal = ({ eventData, onClose, fetchEvents }) => {
   };
 
   return (
-    <div className="bg-black py-5 md:px-4 bg-opacity-20 absolute top-0 left-0 right-0 min-h-screen flex justify-center items-center">
+    <div className="bg-black z-20 py-5 md:px-4 bg-opacity-20 absolute top-0 left-0 right-0 min-h-screen flex justify-center items-center">
       <div>
         <form
           className="bg-white p-4 rounded-lg w-[500px]"

@@ -39,18 +39,40 @@ export const States = [
 ];
 
 export const Services = [
-    {name: "Catering"},
-    {name: "Decoration"},
-    {name: "Rental"},
-    {name: "Photography"},
-    {name: "Entertainment"},
-]
-
-export const Categories = [
-    {name: "Wedding"},
-    {name: "Birthday"},
-    {name: "Corporate"},
-]
+    { name: "Catering" },
+    { name: "Decoration" },
+    { name: "Rental" },
+    { name: "Photography" },
+    { name: "Entertainment" },
+    { name: "Event Coordination" },
+    { name: "Venue Selection" },
+    { name: "Lighting and Sound" },
+    { name: "Floral Arrangements" },
+    { name: "Invitation Design and Printing" },
+    { name: "Security Services" },
+    { name: "Transportation Services" },
+    { name: "Cleanup Services" },
+    { name: "Themed Setup" },
+    { name: "Virtual Event Services" },
+  ];
+  
+  export const Categories = [
+    { name: "Wedding" },
+    { name: "Birthday" },
+    { name: "Corporate" },
+    { name: "Anniversary" },
+    { name: "Baby Shower" },
+    { name: "Graduation" },
+    { name: "Charity Event" },
+    { name: "Product Launch" },
+    { name: "Concert" },
+    { name: "Family Reunion" },
+    { name: "Religious Event" },
+    { name: "Festival" },
+    { name: "Private Party" },
+    { name: "Networking Event" },
+    { name: "Seminar or Workshop" },
+  ];  
 
 export const Status = [
     {name: "Completed"},
@@ -68,5 +90,13 @@ export const Stats = [
     {name: "Active"},
     {name: "Suspended"},
     {name: "Blocked"},
+]
+
+export const ReStats = [
+    {name: "Completed"},
+    {name: "Scheduled"},
+    {name: "Rejected"},
+    // 'Scheduled', "Completed", 'Pending', 'Rejected'
+    // {name: "Pending"}
 ]
 

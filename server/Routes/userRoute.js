@@ -15,7 +15,7 @@ router.delete("/deleteUser/:id",
   VerifyToken, authorizeRoles("Admin"), 
   deleteUser);
 router.get("/displayUser", 
-  VerifyToken, authorizeRoles("Admin"), 
+  // VerifyToken, authorizeRoles("Admin", "Organizer"), 
   displayUser);
 
 module.exports = router;

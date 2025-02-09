@@ -3,30 +3,36 @@ const Requests  = require("../models/custmrRequestModel");
 // Create Request Request
 const createRequest = async (req, res) => {
   try {
+    const { date } = req.body;
+
+    // Check if the event date is in the past
+    if (new Date(date) < new Date()) {
+      return res.status(400).json({ message: "Event date cannot be in the past!" });
+    }
+
+    // Create the request after validation
     const newRequest = await Requests.create(req.body);
 
-    return res.status(201).json({
+    res.status(201).json({
       message: "Request created successfully",
-      data: newRequest,
+      newRequest,
     });
   } catch (error) {
     console.error(error);
     return res.status(500).json({
-      message: "An error occurred while creating the Request",
+      message: "An error occurred while creating the request",
       error: error.message,
     });
   }
 };
+
 
 // Display All Request Requests
 const displayRequests = async (req, res) => {
   try {
     const allRequests = await Requests.find();
 
-    return res.status(200).json({
-      message: "Requests fetched successfully",
-      data: allRequests,
-    });
+    res.status(200).json(allRequests);
   } catch (error) {
     console.error(error);
     return res.status(500).json({
@@ -46,10 +52,7 @@ const displayRequestById = async (req, res) => {
       return res.status(404).json({ message: "Request not found" });
     }
 
-    return res.status(200).json({
-      message: "Request fetched successfully",
-      data: Request,
-    });
+    res.status(200).json(Request);
   } catch (error) {
     console.error(error);
     return res.status(500).json({
@@ -74,10 +77,7 @@ const updateRequest = async (req, res) => {
       return res.status(404).json({ message: "Request not found" });
     }
 
-    return res.status(200).json({
-      message: "Request updated successfully",
-      data: updatedRequest,
-    });
+    res.status(200).json({message: "Request Updated successfully!"});
   } catch (error) {
     console.error(error);
     return res.status(500).json({
@@ -98,10 +98,7 @@ const deleteRequest = async (req, res) => {
       return res.status(404).json({ message: "Request not found" });
     }
 
-    return res.status(200).json({
-      message: "Request deleted successfully",
-      data: deletedRequest,
-    });
+    res.status(200).json({message: "Request deleted successfully!"});
   } catch (error) {
     console.error(error);
     return res.status(500).json({

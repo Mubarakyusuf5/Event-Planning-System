@@ -5,7 +5,6 @@ import axios from "axios";
 
 export const AddEventDetail = ({ onClose, fetchEvents }) => {
   const [formData, setFormData] = useState({
-    // userId: "m",
     eventName: "",
     category: "",
     location: "",
@@ -15,6 +14,7 @@ export const AddEventDetail = ({ onClose, fetchEvents }) => {
     time: "",
     budget: "",
   });
+  const [loading, setLoading] = useState(false); // Loading state
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -36,9 +36,10 @@ export const AddEventDetail = ({ onClose, fetchEvents }) => {
       toast.error("Please fill out all fields!");
       return;
     }
+    setLoading(true); // Start loading
     try {
       const response = await axios.post("/api/event/createEvent", formData);
-      toast.success(response.data.message)
+      toast.success(response.data.message);
       setFormData({
         eventName: "",
         category: "",
@@ -48,22 +49,21 @@ export const AddEventDetail = ({ onClose, fetchEvents }) => {
         date: "",
         time: "",
         budget: "",
-      })
-      onClose()
-      fetchEvents()
-      console.log(response)
-
+      });
+      onClose();
+      fetchEvents();
     } catch (error) {
       const errorMessage = error.response?.data?.message || "Error creating event. Please try again.";
       toast.error(errorMessage);
       console.error("Error:", error);
+    } finally {
+      setLoading(false); // Stop loading
     }
-    console.log("Form submitted:", formData);
   };
 
   return (
-    <div className="bg-black py-5 md:px-4 bg-opacity-20 absolute top-0 left-0 right-0 min-h-screen flex justify-center items-center">
-      <Toaster />
+    <div className="bg-black z-20 py-5 md:px-4 bg-opacity-20 absolute top-0 left-0 right-0 min-h-screen flex justify-center items-center">
+
       <div>
         <form
           className="bg-white p-4 rounded-lg w-[500px]"
@@ -202,13 +202,15 @@ export const AddEventDetail = ({ onClose, fetchEvents }) => {
             <button
               type="submit"
               className="bg-blue-500 transition-all duration-300 hover:bg-blue-600 py-2 text-white font-semiBold px-4 rounded-lg"
+              disabled={loading} // Disable when loading
             >
-              Save
+              {loading ? "Saving..." : "Save"} {/* Show loading text */}
             </button>
             <button
               type="button"
               className="bg-gray-500 duration-300 transition-all hover:bg-gray-600 py-2 text-white font-semiBold px-4 rounded-lg"
               onClick={onClose}
+              // disabled={loading} // Optional: Disable when loading
             >
               Cancel
             </button>

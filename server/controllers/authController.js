@@ -4,6 +4,7 @@ const {
   hashPassword,
 } = require("../middlewares/hash.js");
 const { createToken } = require("../middlewares/jwt.js");
+const User = require("../models/userModel.js");
 
 
 
@@ -42,11 +43,21 @@ const loginUser = async (req, res) => {
     if (!match) { 
       return res.status(400).json({message: "Incorrect password"})
     }
+
+    if (user.status === "Suspended") {
+      return res.status(400).json({ message: "This account has been suspended temporarily. " });
+    }  
+
+    if (user.status === "Blocked") {
+      return res.status(400).json({ message: "This account has been blocked." });
+    }    
+
+
     const token = createToken(user)
     res.cookie("token",token,{
         httpOnly: true,
         secure: true,
-        sameSite: true,
+        sameSite: "Strict",
         maxAge: 3600000
 
     })

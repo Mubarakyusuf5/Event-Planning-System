@@ -6,9 +6,6 @@ import { BrowseSection } from '../components/Home/BrowseSection'
 import { Footer } from '../components/Home/Footer'
 
 export const Home = () => {
-    useEffect(()=>{
-        document.title= " Eventee - Discover The Best Events Around You"
-    })
   return (
     <div className='text-zinc-800' >
       <Hero />
