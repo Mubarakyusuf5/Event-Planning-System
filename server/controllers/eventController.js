@@ -1,42 +1,6 @@
 const {Events} = require("../models/eventModel");
 
 
-// const createEvent = async (req, res) => {
-//   try {
-//     const {
-//       userId,
-//       eventName,
-//       location,
-//       date, 
-//       time,
-//       status,
-//       budget,
-//       maxAttendee,
-//       venue, 
-//       category,
-//       description, 
-//     } = req.body;
-    
-
-//     // Check if event with the same name already exists
-//     const exist = await Events.findOne({ eventName });
-//     if (exist) {
-//       return res.status(400).json({ message: "Event already exists" });
-//     }
-
-//     // Create new event
-//     const newEvent = await Events.create({
-//       userId, eventName, location, date, time, status, budget, venue, category, maxAttendee, description,
-//     });
-
-//     // Respond with success message
-//     res.status(200).json({ message: "Event created successfully", newEvent });
-//   } catch (error) {
-//     // Handle errors
-//     res.status(400).json({ message: "Error creating Event", error: error.message });
-//   }
-// };
-
 const createEvent = async (req, res) => {
   try {
     const {

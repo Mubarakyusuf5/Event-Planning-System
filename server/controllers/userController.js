@@ -16,13 +16,9 @@ const displayUser = async (req, res)=>{
 
 const updateUser = async (req, res) => {
     try {
-      const { fullname, role, email, password, status } = req.body;
+      const { fullname, role, email, status } = req.body;
   
-      // Hash password before updating if it's provided
       const updatedData = { fullname, role, status, email };
-      if (password) {
-        updatedData.password = await hashPassword(password);
-      }
   
       const updatedUser = await Users.findByIdAndUpdate(req.params.id, updatedData, { new: true });
   
@@ -33,6 +29,25 @@ const updateUser = async (req, res) => {
       res.status(200).json({ message: "User updated successfully", updatedUser });
     } catch (error) {
       res.status(500).json({ message: "Error updating User", error });
+    }
+  };
+
+const updateUserPassword = async (req, res) => {
+    try {
+      const { password } = req.body;
+  
+      // Hashed password 
+        const hashedPassword = await hashPassword(password);
+  
+      const updatedUser = await Users.findByIdAndUpdate(req.params.id, hashedPassword, { new: true });
+  
+      if (!updatedUser) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      res.status(200).json({ message: "User password updated successfully", updatedUser });
+    } catch (error) {
+      res.status(500).json({ message: "Error updating User password", error });
     }
   };
 
@@ -53,5 +68,6 @@ const deleteUser = async (req, res)=>{
 module.exports = {
     displayUser,
     updateUser,
+    updateUserPassword,
     deleteUser,
   };

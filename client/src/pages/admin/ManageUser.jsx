@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Sidebar } from "../../components/Sidebar";
-import { BellIcon, MagnifyingGlassIcon, PlusIcon, EyeIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { BellIcon, MagnifyingGlassIcon, PlusIcon, EyeIcon, PencilIcon, TrashIcon, KeyIcon } from "@heroicons/react/24/outline";
 import DataTable from 'react-data-table-component';
 import { format } from 'date-fns';
 import { NavbarOrg } from "../../components/Navbar/NavbarOrg";
@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import { useAuth } from "../../Context/AuthContext";
 import { AddUserModal } from "../../components/Modal/users/AddUserModal";
 import { UpdateUserModal } from "../../components/Modal/users/UpdateUserModal";
+import { UpdateUserPassword } from "../../components/Modal/users/updateUserPassword";
 
 // Custom styles for DataTable
 const ActionButton = ({ icon: Icon, onClick, ariaLabel, bgColor }) => (
@@ -57,6 +58,7 @@ export const ManageUser = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
   const [userData, setuserData] = useState([]);
+  const [showPasswordModal, setShowPasswordModal] = useState(false)
   const [search, setSearch] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -89,6 +91,11 @@ export const ManageUser = () => {
     setSelectedUser(userData);
     setShowViewModal(true);
   };
+
+  const handlePasswordModal = (userData) => {
+    setSelectedUser(userData)
+    setShowPasswordModal(true)
+  }
 
   const handleDeleteModal = (userData) => {
     setSelectedUser(userData);
@@ -155,6 +162,13 @@ export const ManageUser = () => {
       name: 'Actions',
       cell: row => (
         <div className="flex space-x-2">
+          
+          <ActionButton
+            icon={PencilIcon}
+            onClick={() => handleUpdateBtn(row)}
+            ariaLabel="Edit user"
+            bgColor="bg-yellow-500"
+          />
           {/* <ActionButton
             icon={EyeIcon}
             onClick={() => handleViewModal(row)}
@@ -162,10 +176,10 @@ export const ManageUser = () => {
             bgColor="bg-blue-500"
           /> */}
           <ActionButton
-            icon={PencilIcon}
-            onClick={() => handleUpdateBtn(row)}
-            ariaLabel="Edit user"
-            bgColor="bg-yellow-500"
+            icon={KeyIcon}
+            onClick={() => handlePasswordModal(row)}
+            ariaLabel="update password"
+            bgColor="bg-gray-500"
           />
           <ActionButton
             icon={TrashIcon}
@@ -175,9 +189,6 @@ export const ManageUser = () => {
           />
         </div>
       ),
-      ignoreRowClick: true,
-      allowOverflow: true,
-      button: true,
     },
   ];
   const handleToggle = ()=>{
@@ -219,6 +230,9 @@ export const ManageUser = () => {
       {showUpdateModal && <UpdateUserModal userData={selectedUser} fetchUsers={fetchUsers} onClose={() => setShowUpdateModal(false)} />}
       {showDeleteModal && <DeleteModal onClose={() => setShowDeleteModal(false)} onDelete={() => handleDeleteBtn(selectedUser._id)} />}
       {showViewModal && <ViewEventModal onClose={() => setShowViewModal(false)} userData={selectedUser} />}
+      {showPasswordModal && (
+        <UpdateUserPassword userData={selectedUser} fetchUsers={fetchUsers} onClose={() => setShowPasswordModal(false)} />
+      )}
     </div>
   );
 };
