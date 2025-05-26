@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { Roles, Stats } from "../../../Data";
+// import { Roles, Stats } from "../../../Data";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 
 export const UpdateUserPassword = ({userData, onClose, fetchUsers }) => {
   const [formData, setFormData] = useState({
-    password: userData.password || "",
+    password: "",
     cPassword: "",
   });
+//   console.log(formData)
   const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
@@ -17,8 +18,8 @@ export const UpdateUserPassword = ({userData, onClose, fetchUsers }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.password || !formData.cPassword) {
-      toast.error("All fields are required!");
+    if (!formData.password) {
+      toast.error("Password is required");
       return;
     }
     if (formData.password !== formData.cPassword) {
@@ -32,6 +33,7 @@ export const UpdateUserPassword = ({userData, onClose, fetchUsers }) => {
         `/api/users/updateUserPassword/${userData._id}`,
         formData
       );
+      console.log(response)
       toast.success(response.data.message);
       fetchUsers(); // Refresh the events list
       onClose(); // Close the modal after update
@@ -72,10 +74,10 @@ export const UpdateUserPassword = ({userData, onClose, fetchUsers }) => {
           </div>
           <div className="mb-2">
             <label htmlFor="cPassword" className="text-base font-medium">
-              Confirm cPassword
+              Confirm Password
             </label>
             <input
-              type="cPassword"
+              type="password"
               name="cPassword"
               id="cPassword"
               value={formData.cPassword}

@@ -7,7 +7,6 @@ export const UpdateUserModal = ({userData, onClose, fetchUsers }) => {
   const [formData, setFormData] = useState({
     fullname: userData.fullname || "",
     email: userData.email || "",
-    password: "",
     role: userData.role || "",
     status: userData.status || "",
   });
@@ -20,7 +19,7 @@ export const UpdateUserModal = ({userData, onClose, fetchUsers }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.fullname || !formData.email || !formData.role || !formData.password || !formData.status) {
+    if (!formData.fullname || !formData.email || !formData.role || !formData.status) {
       toast.error("All fields are required!");
       return;
     }
@@ -80,20 +79,6 @@ export const UpdateUserModal = ({userData, onClose, fetchUsers }) => {
               value={formData.email}
               onChange={handleInputChange}
               placeholder="Enter email address"
-              className="block w-full p-2 border border-gray-300 rounded-lg focus:border-blue-600 outline-none"
-            />
-          </div>
-          <div className="mb-2">
-            <label htmlFor="password" className="text-base font-medium">
-              Password
-            </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              placeholder="Enter password"
               className="block w-full p-2 border border-gray-300 rounded-lg focus:border-blue-600 outline-none"
             />
           </div>

@@ -4,17 +4,17 @@ const UserSchema = mongoose.Schema(
   {
     fullname: {
       type: String,
-      required: true,
+      // required: true,
     },
     email: {
       type: String,
-      required: true,
+      // required: true,
       unique: true,
       match: [/.+\@.+\..+/, "Please fill a valid email address"],
     },
     password: {
       type: String,
-      required: true,
+      // required: true,
     },
     role: {
       type: String,
